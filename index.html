@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores amarillas para ti 💛</title>
+<style>
+:root{
+  --amarillo:#ffd83d;
+  --amarillo2:#ffec7a;
+  --dorado:#d5a300;
+  --crema:#fffaf2;
+  --rosa:#ffe7ef;
+  --verde:#4f7d56;
+  --verde2:#79a66f;
+  --marron:#6d4b00;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI",system-ui,sans-serif;
+  color:#4f4434;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(255,220,80,.28),transparent 24%),
+    radial-gradient(circle at 88% 16%,rgba(255,221,235,.40),transparent 22%),
+    linear-gradient(180deg,#fffdf9,#fff8dc 48%,#fffef9);
+}
+#petals{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:90}
+.petal{
+  position:absolute;top:-12vh;width:16px;height:27px;
+  border-radius:80% 20% 75% 25%;
+  background:linear-gradient(150deg,#fff7a9,#f5c300);
+  box-shadow:0 3px 7px rgba(117,83,0,.12);
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translate3d(0,-12vh,0) rotate(0)}
+  50%{transform:translate3d(65px,55vh,0) rotate(180deg)}
+  100%{transform:translate3d(-30px,115vh,0) rotate(360deg)}
+}
+.reveal{opacity:0;transform:translateY(34px);transition:.85s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* SVG floral decor */
+.floral{
+  position:absolute;
+  pointer-events:none;
+  filter:drop-shadow(0 14px 12px rgba(91,61,0,.15));
+  z-index:2;
+}
+.floral.large{width:245px;height:245px}
+.floral.medium{width:175px;height:175px}
+.floral.small{width:130px;height:130px}
+.floral.tl{left:-55px;top:-45px}
+.floral.tr{right:-55px;top:-45px;transform:scaleX(-1)}
+.floral.bl{left:-58px;bottom:-52px;transform:scaleY(-1)}
+.floral.br{right:-58px;bottom:-52px;transform:scale(-1)}
+
+#intro{
+  position:fixed;inset:0;z-index:999;display:grid;place-items:center;padding:20px;
+  background:
+    radial-gradient(circle at 50% 28%,rgba(255,255,255,.95),rgba(255,245,185,.86) 42%,rgba(255,218,70,.93));
+  transition:opacity .8s ease,visibility .8s ease;
+}
+#intro.hide{opacity:0;visibility:hidden}
+.intro-card{
+  width:min(760px,95vw);position:relative;text-align:center;overflow:hidden;
+  padding:70px 34px 58px;border-radius:42px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 28px 90px rgba(106,76,0,.23);
+  backdrop-filter:blur(12px);
+}
+.intro-card:after{
+  content:"";position:absolute;left:8%;right:8%;bottom:18px;height:12px;
+  background:radial-gradient(circle,#f4c700 0 4px,transparent 5px) center/28px 12px repeat-x;
+  opacity:.55
+}
+.gift{font-size:4.8rem;position:relative;z-index:4;animation:bounce 1.8s ease-in-out infinite}
+@keyframes bounce{50%{transform:translateY(-10px) rotate(3deg)}}
+.intro-card h1{
+  position:relative;z-index:4;margin-top:8px;
+  font-family:Georgia,serif;font-size:clamp(2.8rem,7vw,5rem);line-height:1.02;color:#694b00
+}
+.intro-card h1 span{display:block;color:#d4a100;font-style:italic;margin-top:8px}
+.intro-card p{
+  position:relative;z-index:4;max-width:540px;margin:20px auto 28px;
+  line-height:1.8;font-size:1.08rem;color:#695c43
+}
+.open-btn{
+  position:relative;z-index:4;border:0;cursor:pointer;padding:16px 30px;
+  border-radius:999px;font-weight:800;font-size:1rem;color:#4e3900;
+  background:linear-gradient(135deg,#fff5a8,#ffc824);
+  box-shadow:0 12px 25px rgba(143,101,0,.22);transition:.25s
+}
+.open-btn:hover{transform:translateY(-3px) scale(1.03)}
+
+.hero{
+  min-height:100vh;display:grid;place-items:center;padding:100px 20px 90px;position:relative
+}
+.hero-card{
+  width:min(1020px,95vw);position:relative;text-align:center;overflow:hidden;
+  padding:80px 35px 60px;border-radius:42px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,250,240,.88)),
+    radial-gradient(circle at 20% 20%,rgba(255,220,73,.20),transparent 20%);
+  border:1px solid rgba(220,187,91,.25);
+  box-shadow:0 26px 75px rgba(105,77,0,.14)
+}
+.hero-card:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:
+    radial-gradient(circle at 35px 35px,rgba(255,207,49,.18) 0 4px,transparent 5px) 0 0/75px 75px,
+    radial-gradient(circle at 55px 55px,rgba(255,214,229,.18) 0 5px,transparent 6px) 0 0/100px 100px;
+}
+.badge{
+  position:relative;z-index:5;display:inline-block;padding:9px 16px;border-radius:999px;
+  background:#fff0a7;color:#8b6700;letter-spacing:.13em;font-size:.82rem;font-weight:900;text-transform:uppercase
+}
+.hero h2{
+  position:relative;z-index:5;margin-top:22px;
+  font-family:Georgia,serif;font-size:clamp(3rem,8vw,6.4rem);line-height:1;color:#684900
+}
+.hero h2 span{display:block;color:#d3a000;font-style:italic;margin-top:10px}
+.hero-text{
+  position:relative;z-index:5;max-width:760px;margin:28px auto 0;
+  line-height:1.86;font-size:clamp(1.05rem,2vw,1.28rem)
+}
+.signature{position:relative;z-index:5;margin-top:22px;font-family:Georgia,serif;font-style:italic;color:#8a6800;font-size:1.22rem}
+.scroll-btn{
+  position:relative;z-index:5;display:inline-block;margin-top:30px;text-decoration:none;
+  color:#4d3900;font-weight:800;padding:14px 22px;border-radius:999px;
+  background:linear-gradient(135deg,#fff6b0,#ffd447);box-shadow:0 10px 22px rgba(155,111,0,.18)
+}
+
+.divider{
+  width:min(1000px,92vw);height:58px;margin:auto;
+  background:
+    radial-gradient(circle at 28px 29px,#6e4b00 0 6px,transparent 7px),
+    radial-gradient(circle at 28px 9px,#ffe56d 0 14px,transparent 15px),
+    radial-gradient(circle at 48px 29px,#ffd53f 0 14px,transparent 15px),
+    radial-gradient(circle at 28px 49px,#ffe97c 0 14px,transparent 15px),
+    radial-gradient(circle at 8px 29px,#ffd53f 0 14px,transparent 15px);
+  background-size:112px 58px;opacity:.62
+}
+
+/* CARTA */
+.letter-section{padding:110px 20px 90px}
+.letter-wrap{width:min(900px,95vw);margin:auto;position:relative}
+.letter{
+  position:relative;z-index:3;padding:68px 46px 46px;border-radius:26px 26px 36px 36px;overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,250,241,.97)),
+    repeating-linear-gradient(0deg,transparent 0 31px,rgba(234,219,180,.28) 32px);
+  border:1px solid #efe2bc;box-shadow:0 26px 75px rgba(93,66,0,.14)
+}
+.letter:before{
+  content:"";position:absolute;top:0;left:0;right:0;height:34px;
+  background:
+    radial-gradient(circle at 17px 17px,#6e4b00 0 5px,transparent 6px),
+    radial-gradient(circle at 17px 4px,#ffe56d 0 11px,transparent 12px),
+    radial-gradient(circle at 30px 17px,#ffd53f 0 11px,transparent 12px),
+    radial-gradient(circle at 17px 30px,#ffe97c 0 11px,transparent 12px),
+    radial-gradient(circle at 4px 17px,#ffd53f 0 11px,transparent 12px);
+  background-size:68px 34px;opacity:.8
+}
+.letter h3{text-align:center;font-family:Georgia,serif;color:#694c00;font-size:clamp(2.1rem,5vw,3.3rem);margin-bottom:24px}
+.letter p{font-family:Georgia,serif;line-height:1.95;font-size:1.12rem;text-align:left}
+.love-line{margin-top:22px;text-align:center!important;color:#977000;font-weight:bold;font-size:1.18rem!important}
+
+/* RECUERDOS */
+.memories{padding:95px 20px}
+.section-title{text-align:center;font-family:Georgia,serif;font-size:clamp(2.5rem,5vw,4rem);color:#654900}
+.section-sub{max-width:680px;margin:14px auto 40px;text-align:center;line-height:1.75;font-size:1.05rem;color:#6d604c}
+.collage{
+  width:min(1100px,95vw);margin:auto;display:grid;grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:150px;gap:15px
+}
+.photo{
+  overflow:hidden;border-radius:24px;border:5px solid rgba(255,255,255,.96);
+  box-shadow:0 18px 45px rgba(92,68,0,.14);background:#f4dc68;
+  transform:rotate(var(--r,0deg));transition:.35s ease
+}
+.photo:hover{transform:rotate(0) scale(1.025);z-index:4}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.p1{grid-column:span 5;grid-row:span 2;--r:-1.2deg}
+.p2{grid-column:span 3;grid-row:span 2;--r:1deg}
+.p3{grid-column:span 4;grid-row:span 3;--r:-.8deg}
+.p4{grid-column:span 4;grid-row:span 2;--r:1deg}
+.p5{grid-column:span 4;grid-row:span 2;--r:-1deg}
+.p6{grid-column:span 4;grid-row:span 1;--r:.8deg}
+
+.final-note{
+  width:min(850px,92vw);margin:70px auto 0;padding:40px 28px;border-radius:32px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,#fffef9,#fff0ad);box-shadow:0 18px 45px rgba(105,79,0,.12)
+}
+.final-note .heart{font-size:2.8rem;animation:bounce 1.6s infinite}
+.final-note p{margin-top:14px;line-height:1.85;font-size:1.15rem}
+
+.music-btn{
+  position:fixed;right:18px;bottom:18px;z-index:150;width:56px;height:56px;border:0;border-radius:50%;
+  cursor:pointer;display:grid;place-items:center;background:linear-gradient(135deg,#ffe47a,#ffd03f);
+  color:#4e3900;font-size:1.35rem;box-shadow:0 12px 28px rgba(117,83,0,.25)
+}
+footer{text-align:center;padding:35px 20px 55px;color:#887655}
+
+@media(max-width:900px){
+  .floral.large{width:180px;height:180px}
+  .floral.medium{width:130px;height:130px}
+  .letter{padding:58px 26px 40px}
+  .collage{grid-auto-rows:125px;gap:10px}
+  .p1,.p2,.p3,.p4,.p5,.p6{grid-column:span 6}
+  .p3{grid-row:span 2}
+}
+@media(max-width:560px){
+  .intro-card,.hero-card{padding-left:18px;padding-right:18px}
+  .floral.large{width:125px;height:125px}
+  .floral.medium{width:95px;height:95px}
+  .letter-wrap .floral{display:none}
+  .collage{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+  .p1,.p2,.p3,.p4,.p5,.p6{grid-column:span 1;grid-row:span 1}
+  .p1,.p4{grid-column:span 2}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Definiciones SVG de flores más realistas -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <radialGradient id="petalGrad" cx="45%" cy="30%">
+      <stop offset="0%" stop-color="#fff8ad"/>
+      <stop offset="55%" stop-color="#ffd944"/>
+      <stop offset="100%" stop-color="#e9ae00"/>
+    </radialGradient>
+    <radialGradient id="centerGrad">
+      <stop offset="0%" stop-color="#9b6a09"/>
+      <stop offset="65%" stop-color="#6c4300"/>
+      <stop offset="100%" stop-color="#3a2300"/>
+    </radialGradient>
+    <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7cab72"/>
+      <stop offset="100%" stop-color="#3f6f49"/>
+    </linearGradient>
+
+    <symbol id="sunflower" viewBox="0 0 220 220">
+      <g transform="translate(110 95)">
+        <g fill="url(#petalGrad)">
+          <ellipse rx="18" ry="56" transform="rotate(0) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(30) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(60) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(90) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(120) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(150) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(180) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(210) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(240) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(270) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(300) translate(0 -46)"/>
+          <ellipse rx="18" ry="56" transform="rotate(330) translate(0 -46)"/>
+        </g>
+        <circle r="34" fill="url(#centerGrad)"/>
+        <circle r="24" fill="none" stroke="#c68a1a" stroke-width="2" stroke-dasharray="2 5"/>
+        <circle r="15" fill="none" stroke="#e0a62d" stroke-width="2" stroke-dasharray="1 4"/>
+      </g>
+      <path d="M110 125 C108 150,108 178,105 220" stroke="#4f7d56" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M108 160 C76 146,62 151,50 171 C72 180,91 178,108 166Z" fill="url(#leafGrad)"/>
+      <path d="M106 182 C133 165,154 168,169 188 C145 198,124 195,106 187Z" fill="url(#leafGrad)"/>
+    </symbol>
+
+    <symbol id="daisy" viewBox="0 0 180 180">
+      <g transform="translate(90 75)">
+        <g fill="url(#petalGrad)">
+          <ellipse rx="13" ry="41" transform="rotate(0) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(40) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(80) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(120) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(160) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(200) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(240) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(280) translate(0 -36)"/>
+          <ellipse rx="13" ry="41" transform="rotate(320) translate(0 -36)"/>
+        </g>
+        <circle r="23" fill="url(#centerGrad)"/>
+      </g>
+      <path d="M90 98 C90 120,88 145,89 180" stroke="#4f7d56" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M89 134 C68 125,57 131,49 145 C65 151,78 150,89 140Z" fill="url(#leafGrad)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="petals"></div>
+
+<audio id="music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicButton" onclick="toggleMusic()">♪</button>
+
+<section id="intro">
+  <div class="intro-card">
+    <svg class="floral large tl"><use href="#sunflower"/></svg>
+    <svg class="floral medium tr"><use href="#daisy"/></svg>
+    <svg class="floral medium bl"><use href="#daisy"/></svg>
+    <svg class="floral large br"><use href="#sunflower"/></svg>
+
+    <div class="gift">🎁</div>
+    <h1>Para <span>Yesenia M.💛</span></h1>
+    <p>
+      Hoy quería regalarte algo bonito, delicado y hecho especialmente para ti.
+      Como la distancia no me deja estar a tu lado para entregarte flores de verdad,
+      preparé este pequeño jardín amarillo solo para ti.
+    </p>
+    <button class="open-btn" onclick="openSurprise()">Abrir mi sorpresa 💛</button>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="hero-card reveal">
+    <svg class="floral large tl"><use href="#sunflower"/></svg>
+    <svg class="floral medium" style="left:110px;top:-38px;transform:rotate(12deg)"><use href="#daisy"/></svg>
+    <svg class="floral large tr"><use href="#sunflower"/></svg>
+    <svg class="floral medium" style="right:110px;top:-38px;transform:rotate(-12deg)"><use href="#daisy"/></svg>
+    <svg class="floral medium bl"><use href="#daisy"/></svg>
+    <svg class="floral large br"><use href="#sunflower"/></svg>
+
+    <span class="badge">21 de septiembre · flores amarillas</span>
+    <h2>Flores amarillas para <span>Yesenia M. 💛</span></h2>
+    <p class="hero-text">
+      Tal vez hoy no pueda estar contigo para entregarte un ramo en persona,
+      pero sí puedo regalarte este pequeño jardín amarillo hecho con cariño,
+      recuerdos y muchas ganas de hacerte sonreír.
+    </p>
+    <p class="signature">Con mucho amor, Jean C. 💛</p>
+    <a class="scroll-btn" href="#recuerdos">Ver nuestros recuerdos ↓</a>
+  </div>
+</section>
+
+<div class="divider reveal"></div>
+
+<section class="letter-section">
+  <div class="letter-wrap reveal">
+    <svg class="floral medium tl"><use href="#sunflower"/></svg>
+    <svg class="floral small" style="left:70px;top:-48px;transform:rotate(10deg)"><use href="#daisy"/></svg>
+    <svg class="floral medium tr"><use href="#sunflower"/></svg>
+    <svg class="floral small" style="right:70px;top:-48px;transform:rotate(-10deg)"><use href="#daisy"/></svg>
+    <svg class="floral medium bl"><use href="#sunflower"/></svg>
+    <svg class="floral medium br"><use href="#sunflower"/></svg>
+
+    <div class="letter">
+      <h3>Una pequeña carta para ti</h3>
+      <p>
+        Mi amor, hoy todos hablan de regalar flores amarillas y yo solo pensaba
+        en cuánto me gustaría estar contigo para entregártelas personalmente.
+        <br><br>
+        Como la distancia no me deja hacerlo, quise sorprenderte de una forma diferente.
+        Puede que estas flores no se puedan tocar, pero cada detalle de esta página fue
+        pensado con muchísimo cariño para ti.
+        <br><br>
+        Gracias por formar parte de mi vida, por cada conversación, por cada recuerdo
+        y por todos esos pequeños momentos que hacen que mi corazón sonría incluso
+        cuando estamos lejos.
+      </p>
+      <p class="love-line">
+        La distancia cambia el lugar, pero no cambia lo que siento por ti. 💛
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider reveal"></div>
+
+<section class="memories" id="recuerdos">
+  <div class="reveal">
+    <h2 class="section-title">Un pedacito de nosotros</h2>
+    <p class="section-sub">
+      Algunas fotos guardan momentos. Otras guardan sonrisas, recuerdos y emociones
+      que merecen quedarse para siempre.
+    </p>
+  </div>
+
+  <div class="collage reveal">
+    <div class="photo p1"><img src="imagenes/foto1.jpg" alt="Nuestro recuerdo 1"></div>
+    <div class="photo p2"><img src="imagenes/foto2.jpg" alt="Nuestro recuerdo 2"></div>
+    <div class="photo p3"><img src="imagenes/foto3.jpg" alt="Nuestro recuerdo 3"></div>
+    <div class="photo p4"><img src="imagenes/foto4.jpg" alt="Nuestro recuerdo 4"></div>
+    <div class="photo p5"><img src="imagenes/foto5.jpg" alt="Nuestro recuerdo 5"></div>
+    <div class="photo p6"><img src="imagenes/foto6.jpg" alt="Nuestro recuerdo 6"></div>
+  </div>
+
+  <div class="final-note reveal">
+    <svg class="floral small" style="left:-18px;top:-18px"><use href="#daisy"/></svg>
+    <svg class="floral small" style="right:-18px;bottom:-18px;transform:scale(-1)"><use href="#daisy"/></svg>
+    <div class="heart">💛</div>
+    <p>
+      Hoy mis flores amarillas llegaron de una manera distinta:
+      en forma de recuerdos, palabras y un pequeño rincón de internet creado solo para ti.
+      <br><br>
+      <strong>Te extraño, te pienso y te quiero muchísimo.</strong>
+    </p>
+  </div>
+</section>
+
+<footer>Hecho con amor por Jean 💛</footer>
+
+<script>
+const petals=document.getElementById("petals");
+for(let i=0;i<55;i++){
+  const p=document.createElement("span");
+  p.className="petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(7+Math.random()*8)+"s";
+  p.style.animationDelay=(-Math.random()*12)+"s";
+  p.style.opacity=.45+Math.random()*.45;
+  p.style.scale=.55+Math.random()*.85;
+  petals.appendChild(p);
+}
+
+function openSurprise(){
+  document.getElementById("intro").classList.add("hide");
+  const music=document.getElementById("music");
+  music.volume=.45;
+  music.play().catch(()=>{});
+  setTimeout(()=>document.querySelector(".hero-card").classList.add("visible"),300);
+}
+
+function toggleMusic(){
+  const music=document.getElementById("music");
+  const btn=document.getElementById("musicButton");
+  if(music.paused){music.play().catch(()=>{});btn.textContent="♫";}
+  else{music.pause();btn.textContent="♪";}
+}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")});
+},{threshold:.15});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
